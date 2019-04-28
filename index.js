@@ -17,7 +17,9 @@ exports.gcbNotifier = (event, ctx, cb) => {
 };
 
 const eventToBuildAdapter = (data) => {
-  return JSON.parse(Buffer.from(data, 'base64').toString());
+  const raw = Buffer.from(data, 'base64').toString();
+  console.log(raw);
+  return JSON.parse(raw);
 };
 
 const buildSlackMessage = (build) => {
