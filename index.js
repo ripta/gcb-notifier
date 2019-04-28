@@ -10,7 +10,7 @@ exports.gcbNotifier = (event, cb) => {
   }
 
   const message = buildSlackMessage(build);
-  SlacWebhook.send(message, cb);
+  SlackWebhook.send(message, cb);
 };
 
 const eventToBuildAdapter = (data) => {
