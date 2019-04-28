@@ -6,7 +6,8 @@ exports.gcbNotifier = (event, ctx, cb) => {
   const build = eventToBuildAdapter(event.data);
   const status = ['SUCCESS', 'FAILURE', 'INTERNAL_ERROR', 'TIMEOUT'];
   if (status.indexOf(build.status) === -1) {
-    console.log("%s(%s): invalid status '%s'", ctx.eventType, ctx.eventId, build.status);
+    console.log('%s(%s): invalid status %s',
+        ctx.eventType, ctx.eventId, build.status);
     return cb();
   }
 
