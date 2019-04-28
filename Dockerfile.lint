@@ -1,0 +1,6 @@
+FROM node:10-jessie-slim
+
+COPY . /app/
+WORKDIR /app
+RUN npm install -g eslint eslint-config-google
+RUN npm run lint

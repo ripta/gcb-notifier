@@ -1,0 +1,4 @@
+steps:
+  - id: Lint
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcb-notifier:linter', '-f', 'Dockerfile.lint', '.']
