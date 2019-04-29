@@ -2,7 +2,7 @@
 const IncomingWebhook = require('@slack/client').IncomingWebhook;
 const SlackWebhook = new IncomingWebhook(process.env.SLACK_WEBHOOK_URL);
 
-exports.gcbNotifier = (event, ctx, cb) => {
+exports.gcbNotifier = async (event, ctx, cb) => {
   const build = eventToBuildAdapter(event.data);
   const status = ['SUCCESS', 'FAILURE', 'INTERNAL_ERROR', 'TIMEOUT'];
   if (status.indexOf(build.status) === -1) {
@@ -11,9 +11,15 @@ exports.gcbNotifier = (event, ctx, cb) => {
     return cb();
   }
 
-  console.log('%s(%s): processing', ctx.eventType, ctx.eventId);
-  const message = buildSlackMessage(build);
-  return SlackWebhook.send(message);
+  try {
+    const message = buildSlackMessage(build);
+    const result = await SlackWebhook.send(message);
+    console.log('%s(%s): processed: %s',
+        ctx.eventType, ctx.eventId, result.body);
+  } catch (err) {
+    console.log('%s(%s): error: %s', ctx.eventType, ctx.eventId, err);
+  }
+  return cb();
 };
 
 const eventToBuildAdapter = (data) => {
