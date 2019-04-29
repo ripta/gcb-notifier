@@ -30,7 +30,7 @@ const eventToBuildAdapter = (data) => {
 
 const buildSlackMessage = (build) => {
   return {
-    text: `Build ${build.id}`,
+    text: `${build.substitutions.REPO_NAME} — build ${build.id}`,
     mrkdwn: true,
     attachments: [
       {
@@ -40,6 +40,18 @@ const buildSlackMessage = (build) => {
           {
             title: 'Status',
             value: build.status,
+          },
+          {
+            title: 'Repository',
+            value: build.substitutions.REPO_NAME,
+          },
+          {
+            title: 'Commit',
+            value: build.substitutions.COMMIT_SHA,
+          },
+          {
+            title: 'Branch',
+            value: build.substitutions.BRANCH_NAME,
           },
         ],
       },
