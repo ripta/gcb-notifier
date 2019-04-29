@@ -36,10 +36,12 @@ const buildSlackMessage = (build) => {
       {
         title: 'Build logs',
         title_link: build.logUrl,
-        fields: [{
-          title: 'Status',
-          value: build.status,
-        }],
+        fields: [
+          {
+            title: 'Status',
+            value: build.status,
+          },
+        ],
       },
     ],
   };
